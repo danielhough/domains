@@ -1,17 +1,17 @@
 provider "aws" {}
 
-variable "app_name" {
+variable "APP_NAME" {
   description = "Domains"
   default     = "domains"
 }
 
-variable "app_env" {
+variable "APP_ENV" {
   description = "Application environment tag"
   default     = "dev"
 }
 
 locals {
-  app_id = "${lower(var.app_name)}-${lower(var.app_env)}-${random_id.unique_suffix.hex}"
+  app_id = "${lower(var.APP_NAME)}-${lower(var.APP_ENV)}-${random_id.unique_suffix.hex}"
 }
 
 data "archive_file" "lambda_zip" {
