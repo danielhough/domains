@@ -36,7 +36,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform -chdir=./terraform plan -input=false
+        run: terraform -chdir=./terraform plan
 
       - name: Terraform Apply
         id: apply
