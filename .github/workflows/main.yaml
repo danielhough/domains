@@ -2,12 +2,15 @@ name: Deploy
 
 on:
   push:
-    branches:
-      - master
+    branches: [ master ]
+    pull_request:
+      branches: [ master ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: production
     steps:
       - uses: actions/checkout@v3
 
@@ -28,6 +31,9 @@ jobs:
       - name: Build
         run: CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -ldflags "-s -w" -o ./terraform/bin/app ./src/main.go
 
+      - name: Tests
+        run: go test -v ./...
+
       - uses: hashicorp/setup-terraform@v2
 
       - name: Terraform Init
@@ -41,3 +47,6 @@ jobs:
       - name: Terraform Apply
         id: apply
         run: terraform -chdir=./terraform apply -auto-approve -input=false
+
+    env:
+      TF_VAR_APP_ENV: production
