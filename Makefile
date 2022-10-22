@@ -1,3 +1,6 @@
+include .env
+export
+
 build:
 	CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -ldflags "-s -w" -o ./terraform/bin/app ./src/main.go
 

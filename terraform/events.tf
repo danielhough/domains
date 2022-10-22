@@ -1,7 +1,7 @@
 resource "aws_cloudwatch_event_rule" "schedule" {
   name = "schedule-${local.app_id}"
   description = "Schedule for Lambda function"
-  schedule_expression = "cron(0/10 * ? * MON-FRI *)" # TODO: fix
+  schedule_expression = var.schedule
 }
 
 resource "aws_cloudwatch_event_target" "schedule_lambda" {
